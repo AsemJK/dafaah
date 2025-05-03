@@ -1,10 +1,16 @@
+using Dafaah.Api.RabbitMQ;
+using Dafaah.Api.RabbitMQ.Connection;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<IRabbitMqConnection>(new RabbitMqConnection());
+builder.Services.AddScoped<IMessageProducer, RabbitMqProducer>();
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

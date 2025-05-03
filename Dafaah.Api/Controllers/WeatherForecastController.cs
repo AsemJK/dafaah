@@ -1,3 +1,4 @@
+using Dafaah.Api.RabbitMQ;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dafaah.Api.Controllers
@@ -12,10 +13,13 @@ namespace Dafaah.Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IMessageProducer _messageProducer;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,
+            IMessageProducer messageProducer)
         {
             _logger = logger;
+            _messageProducer = messageProducer;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +32,16 @@ namespace Dafaah.Api.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost("[action]")]
+        public Task SayHello()
+        {
+            _messageProducer.SendMessage(new
+            {
+
+            });
+            return Task.CompletedTask;
         }
     }
 }

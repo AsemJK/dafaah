@@ -1,6 +1,6 @@
 ﻿using RabbitMQ.Client;
 
-namespace Dafaah.Api.RabbitMQ
+namespace Dafaah.Api.RabbitMQ.Connection
 {
     public class RabbitMqConnection : IRabbitMqConnection, IDisposable
     {
@@ -9,7 +9,7 @@ namespace Dafaah.Api.RabbitMQ
 
         public RabbitMqConnection()
         {
-            InitializeConnectionAsync().Wait(); // Use .Wait() to handle async initialization in a synchronous constructor  
+            InitializeConnectionAsync().Wait();
         }
 
         private async Task InitializeConnectionAsync()
@@ -18,7 +18,7 @@ namespace Dafaah.Api.RabbitMQ
             {
                 HostName = "localhost"
             };
-            _connection = await factory.CreateConnectionAsync(); // Use the async method to create the connection  
+            _connection = await factory.CreateConnectionAsync();
         }
 
         public void Dispose()
