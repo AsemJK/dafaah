@@ -1,4 +1,5 @@
 using Dafaah.Api.RabbitMQ;
+using Dafaah.Products.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dafaah.Api.Controllers
@@ -37,9 +38,10 @@ namespace Dafaah.Api.Controllers
         [HttpPost("[action]")]
         public Task SayHello()
         {
-            _messageProducer.SendMessage(new
+            _messageProducer.SendMessage(new Product
             {
-
+                Id = 1,
+                Name = "mouse"
             });
             return Task.CompletedTask;
         }
